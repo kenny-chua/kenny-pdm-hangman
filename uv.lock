@@ -15,7 +15,11 @@ name = "blessed"
 version = "1.20.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
+<<<<<<< HEAD
     { name = "jinxed", marker = "sys_platform == 'win32'" },
+=======
+    { name = "jinxed", marker = "platform_system == 'Windows'" },
+>>>>>>> main
     { name = "six" },
     { name = "wcwidth" },
 ]
@@ -99,6 +103,7 @@ wheels = [
 ]
 
 [[package]]
+<<<<<<< HEAD
 name = "colorama"
 version = "0.4.6"
 source = { registry = "https://pypi.org/simple" }
@@ -108,6 +113,8 @@ wheels = [
 ]
 
 [[package]]
+=======
+>>>>>>> main
 name = "curtsies"
 version = "0.4.2"
 source = { registry = "https://pypi.org/simple" }
@@ -194,6 +201,7 @@ wheels = [
 ]
 
 [[package]]
+<<<<<<< HEAD
 name = "iniconfig"
 version = "2.0.0"
 source = { registry = "https://pypi.org/simple" }
@@ -203,11 +211,17 @@ wheels = [
 ]
 
 [[package]]
+=======
+>>>>>>> main
 name = "jinxed"
 version = "1.3.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
+<<<<<<< HEAD
     { name = "ansicon", marker = "sys_platform == 'win32'" },
+=======
+    { name = "ansicon", marker = "platform_system == 'Windows'" },
+>>>>>>> main
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/20/d0/59b2b80e7a52d255f9e0ad040d2e826342d05580c4b1d7d7747cfb8db731/jinxed-1.3.0.tar.gz", hash = "sha256:1593124b18a41b7a3da3b078471442e51dbad3d77b4d4f2b0c26ab6f7d660dbf", size = 80981 }
 wheels = [
@@ -222,12 +236,16 @@ source = { virtual = "." }
 [package.dev-dependencies]
 dev = [
     { name = "bpython" },
+<<<<<<< HEAD
     { name = "pytest" },
+=======
+>>>>>>> main
 ]
 
 [package.metadata]
 
 [package.metadata.requires-dev]
+<<<<<<< HEAD
 dev = [
     { name = "bpython", specifier = ">=0.25" },
     { name = "pytest", specifier = ">=8.3.4" },
@@ -250,6 +268,9 @@ sdist = { url = "https://files.pythonhosted.org/packages/96/2d/02d4312c973c6050a
 wheels = [
     { url = "https://files.pythonhosted.org/packages/88/5f/e351af9a41f866ac3f1fac4ca0613908d9a41741cfcf2228f4ad853b697d/pluggy-1.5.0-py3-none-any.whl", hash = "sha256:44e1ad92c8ca002de6377e165f3e0f1be63266ab4d554740532335b9d75ea669", size = 20556 },
 ]
+=======
+dev = [{ name = "bpython", specifier = ">=0.25" }]
+>>>>>>> main
 
 [[package]]
 name = "pygments"
@@ -261,6 +282,7 @@ wheels = [
 ]
 
 [[package]]
+<<<<<<< HEAD
 name = "pytest"
 version = "8.3.4"
 source = { registry = "https://pypi.org/simple" }
@@ -276,6 +298,8 @@ wheels = [
 ]
 
 [[package]]
+=======
+>>>>>>> main
 name = "pyxdg"
 version = "0.28"
 source = { registry = "https://pypi.org/simple" }
