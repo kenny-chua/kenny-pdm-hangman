@@ -23,11 +23,14 @@ class Hangman:
     #         d. Check if the game has been won or lost.
     #     4. Display the final result (win/loss) and reveal the full word.
 
-    def __init__(self):
-        self.secret_movie_proper = random.choice(secret_movie_list())
+    def __init__(self, secret_movie=None, max_guesses=10):
+        if secret_movie is not None:
+            self.secret_movie_proper = secret_movie
+        else:
+            self.secret_movie_proper = random.choice(secret_movie_list())
         self.secret_movie = self.secret_movie_proper.lower()
         self.guesses = 0
-        self.max_guesses = 10
+        self.max_guesses = max_guesses
         self.already_guessed = set()
         self.correct_letter = set()
 
@@ -53,8 +56,8 @@ class Hangman:
 
     def display_progression(self):
         placeholder = ""
-        for char in self.secret_movie:
-            if char in self.correct_letter:
+        for char in self.secret_movie_proper:
+            if char.lower() in self.correct_letter:
                 placeholder += char
             elif char == " ":
                 placeholder += " "
@@ -89,5 +92,6 @@ class Hangman:
             print(self.display_progression())
 
 
-hangman = Hangman()
-hangman.play()
+if __name__ == "__main__":
+    hangman = Hangman()
+    hangman.play()

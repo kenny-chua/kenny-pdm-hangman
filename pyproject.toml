@@ -10,3 +10,9 @@ dependencies = []
 dev = [
     "bpython>=0.25",
 ]
+
+[dependency-groups]
+dev = [
+    "bpython>=0.25",
+    "pytest>=8.3.4",
+]
