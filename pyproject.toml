@@ -9,5 +9,6 @@ dependencies = []
 [dependency-groups]
 dev = [
     "bpython>=0.25",
+    "pre-commit>=4.1.0",
     "pytest>=8.3.4",
 ]
