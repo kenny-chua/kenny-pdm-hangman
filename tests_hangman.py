@@ -34,7 +34,6 @@ def test_clean_movie_title_with_mock_movie_file_secret_movie_generator(mock_movi
         raw_titles = mocked_file.readlines()
 
     print(raw_titles)
-    breakpoint()
 
     expected_cleaned_titles = [
         "The Godfather",
