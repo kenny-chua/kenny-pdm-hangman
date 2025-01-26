@@ -1,7 +1,4 @@
 # Custom Ignores
-hangman_example.py
-number_guessing_class.py
-number_guessing_function.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

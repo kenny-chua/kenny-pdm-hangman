@@ -2,7 +2,20 @@ import random
 import re
 from typing import Generator
 
-DEFAULT_MOVIE = "Default Movie"
+DEFAULT_MOVIE = "No Movie Provide, Default Movie Title"
+
+
+def clean_movie_title(raw_title: str) -> str:
+    """
+    Cleans any movie title by removing numbering, years, and extra spaces.
+
+    Args:
+        raw_title (str): The raw, unclean movie title.
+
+    Returns:
+        str: The cleaned movie title.
+    """
+    return re.sub(r"^\d+\.\s+(.*)\s\(\d{4}\)", r"\1", raw_title).strip()
 
 
 def secret_movie_generator(filepath: str = "movies.txt") -> Generator[str, None, None]:
@@ -27,18 +40,15 @@ def secret_movie_generator(filepath: str = "movies.txt") -> Generator[str, None,
     try:
         with open(filepath, "r") as file:
             for line in file:
-                movie = re.sub(r"^\d+\.\s+(.*)\s\(\d{4}\)", r"\1", line).strip()
-                if movie:
-                    yield movie
+                movie_from_file = clean_movie_title(line)
+                if movie_from_file:
+                    yield movie_from_file
     except FileNotFoundError:
         print(f"Error: Files {filepath} not found.")
-        return [DEFAULT_MOVIE]
-    except ValueError as e:
-        print(f"Error: {e}")
-        return [DEFAULT_MOVIE]
+        yield [DEFAULT_MOVIE]
     except Exception as e:
         print(f"Error: {e}")
-        return [DEFAULT_MOVIE]
+        yield [DEFAULT_MOVIE]
 
 
 class Hangman:
@@ -64,8 +74,10 @@ class Hangman:
             max_guesses (int): The maximum number of incorrect guesses allowed. Defaults to 10.
         """
         movie_list = list(secret_movie_generator())
-        self.secret_movie_proper = secret_movie or (
-            random.choice(movie_list) if movie_list else DEFAULT_MOVIE
+        self.secret_movie_proper = (
+            clean_movie_title(secret_movie)
+            if secret_movie
+            else random.choice(movie_list)
         )
         self.secret_movie = self.secret_movie_proper.lower()
         self.wrong_guesses = 0
