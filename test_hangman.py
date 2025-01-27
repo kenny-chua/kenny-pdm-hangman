@@ -1,6 +1,6 @@
 import pytest
 
-from hangman import Hangman, clean_movie_title, secret_movie_generator
+from hangman import Hangman
 
 
 # ---------------------- FIXTURES ---------------------- `#
@@ -9,7 +9,7 @@ def hangman():
     """
     Provides a Hangman instance with a fixed movie title and max guesses.
     """
-    return Hangman("Pirates of the Caribbean: Dead Man's Chest (2006)", 5)
+    return Hangman("Pirates of the Caribbean: Dead Man's Chest", 5)
 
 
 @pytest.fixture
@@ -23,43 +23,6 @@ def mock_movie_file(mocker):
     6. Pirates of the Caribbean: Dead Man's Chest (2006)
     """
     mocker.patch("builtins.open", mocker.mock_open(read_data=mock_data))
-
-
-# ---- TEST CLEAN MOVIE TITLE COMBINED WITH SECRET MOVIE GENERATOR ------------ #
-def test_clean_movie_title_with_mock_movie_file_secret_movie_generator(mock_movie_file):  # noqa: F841
-    """
-    Test cleaning function with list of movies in Mock Movie File
-    """
-    with open("movies.txt", "r") as mocked_file:
-        raw_titles = mocked_file.readlines()
-
-    print(raw_titles)
-
-    expected_cleaned_titles = [
-        "The Godfather",
-        "Wall-E!",
-        "Up",
-        "Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb",
-        "The Godfather Part II",
-        "Pirates of the Caribbean: Dead Man's Chest",
-    ]
-    cleaned_titles = [clean_movie_title(line) for line in raw_titles]
-    cleaned_titles_generator = list(secret_movie_generator("movies.txt"))
-    assert cleaned_titles == expected_cleaned_titles
-    assert cleaned_titles_generator == expected_cleaned_titles
-
-
-# ------------------ TEST SECRET MOVIE GENERATOR ------------------ #
-def test_secret_movie_generator(mock_movie_file):
-    movies = list(secret_movie_generator("movies.txt"))
-    assert movies == [
-        "The Godfather",
-        "Wall-E!",
-        "Up",
-        "Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb",
-        "The Godfather Part II",
-        "Pirates of the Caribbean: Dead Man's Chest",
-    ]
 
 
 # ---------------------- TEST HANGMAN ---------------------- #
@@ -119,7 +82,7 @@ def test_show_initial_placeholders(movie_title, expected_placeholder):
         (
             "Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb",
             {"x", "q", "z", "f"},
-            "__. ____________ __: ___ _ _______ __ ____ _______ ___ ____ ___ ____",
+            "__. ___________ __: ___ _ _______ __ ____ ________ ___ ____ ___ ____",
         ),
     ],
 )

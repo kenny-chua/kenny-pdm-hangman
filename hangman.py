@@ -1,46 +1,13 @@
 import random
 import re
-from typing import Generator
-
-DEFAULT_MOVIE = "No Movie Provide, Default Movie Title"
 
 
-def clean_movie_title(raw_title: str) -> str:
-    """Cleans any movie title by removing numbering, years, and extra spaces."""
-    return re.sub(r"^\d+\.\s+(.*)\s\(\d{4}\)", r"\1", raw_title).strip()
-
-
-def secret_movie_generator(filepath: str = "movies.txt") -> Generator[str, None, None]:
-    """
-    Generates movie titles from a file.
-
-    This function reads a file line by line, extracts the movie title
-    using a regular expression, and yields it as a string. If the file
-    is not found or an error occurs, it yields a default movie title.
-
-    Args:
-        filepath (str): Path to the file containing movie titles. Defaults to 'movies.txt'.
-
-    Yields:
-        str: A movie title extracted from the file.
-
-    Raises:
-        FileNotFoundError: If the file is not found.
-        ValueError: If an error occurs during movie title extraction.
-        Exception: For any other unexpected errors.
-    """
-    try:
-        with open(filepath, "r") as file:
-            for line in file:
-                movie_from_file = clean_movie_title(line)
-                if movie_from_file:
-                    yield movie_from_file
-    except FileNotFoundError:
-        print(f"Error: Files {filepath} not found.")
-        yield [DEFAULT_MOVIE]
-    except Exception as e:
-        print(f"Error: {e}")
-        yield [DEFAULT_MOVIE]
+def secret_movie_list():
+    with open("movies.txt", "r") as file:
+        secret_movie_list = list(
+            {re.sub(r"^\d+\.\s+|(\(\d{4}\))", "", line).strip() for line in file}
+        )
+        return secret_movie_list
 
 
 class Hangman:
@@ -65,12 +32,10 @@ class Hangman:
                                           a random movie is chosen.
             max_guesses (int): The maximum number of incorrect guesses allowed. Defaults to 10.
         """
-        movie_list = list(secret_movie_generator())
-        self.secret_movie_proper = (
-            clean_movie_title(secret_movie)
-            if secret_movie
-            else random.choice(movie_list)
-        )
+        if secret_movie is not None:
+            self.secret_movie_proper = secret_movie
+        else:
+            self.secret_movie_proper = random.choice(secret_movie_list())
         self.secret_movie = self.secret_movie_proper.lower()
         self.wrong_guesses = 0
         self.max_guesses = max_guesses
@@ -80,10 +45,6 @@ class Hangman:
     def get_placeholder(self, reveal_correct: bool = False) -> str:
         """
         Generates a masked version of the movie title.
-
-        Args:
-            reveal_correct (bool): If True, includes correctly guessed letters.
-                                   If False, shows only placeholders. Defaults to False.
 
         Returns:
             str: The masked movie title.
@@ -173,7 +134,6 @@ class Hangman:
         print(
             "Welcome to Hangman! Try to guess the movie title before you run out of guesses."
         )
-        input("Hit any key for your first movie.\n")
         print("\nTHIS IS YOUR MOVIE\n")
         print(self.show_initial_placeholders())
         while not self.check_win_or_lose():
@@ -191,5 +151,5 @@ class Hangman:
 
 if __name__ == "__main__":
     # hangman = Hangman(secret_movie="Love & Mercy, Oh Brother!! Where? Art:Thou?")
-    hangman = Hangman(secret_movie="")
+    hangman = Hangman()
     hangman.play()
