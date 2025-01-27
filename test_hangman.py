@@ -60,31 +60,33 @@ def test_show_initial_placeholders(movie_title, expected_placeholder):
 @pytest.mark.parametrize(
     "movie_title, correct_letters, expected_progression",
     [
-        # No letters guessed
         (
             "Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb",
             set(),
             "__. ___________ __: ___ _ _______ __ ____ ________ ___ ____ ___ ____",
         ),
-        # Partially guessed letters
         (
             "Pirates of the Caribbean: Dead Man's Chest",
             {"d", "r", "s", "t", "l"},
             "__r_t_s __ t__ __r______: D__d ___'s ___st",
         ),
-        # Fully guessed title
         (
             "Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb",
             set("drstrangeloveorhowilearnedtostopworryingandlovethebomb"),
             "Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb",
         ),
-        # Wrong letters
         (
             "Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb",
             {"x", "q", "z", "f"},
             "__. ___________ __: ___ _ _______ __ ____ ________ ___ ____ ___ ____",
         ),
     ],
+    ids=[
+        "no_letters_guessed",
+        "partially_guessed_letters",
+        "fully_guessed_title",
+        "wrong_letters",
+    ]
 )
 def test_display_game_progression(movie_title, correct_letters, expected_progression):
     """
