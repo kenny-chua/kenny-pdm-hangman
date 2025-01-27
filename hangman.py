@@ -6,15 +6,7 @@ DEFAULT_MOVIE = "No Movie Provide, Default Movie Title"
 
 
 def clean_movie_title(raw_title: str) -> str:
-    """
-    Cleans any movie title by removing numbering, years, and extra spaces.
-
-    Args:
-        raw_title (str): The raw, unclean movie title.
-
-    Returns:
-        str: The cleaned movie title.
-    """
+    """Cleans any movie title by removing numbering, years, and extra spaces."""
     return re.sub(r"^\d+\.\s+(.*)\s\(\d{4}\)", r"\1", raw_title).strip()
 
 
@@ -102,21 +94,11 @@ class Hangman:
         )
 
     def show_initial_placeholders(self) -> str:
-        """
-        Displays the initial masked version of the movie title.
-
-        Returns:
-            str: The initial placeholder string.
-        """
+        """Displays the initial masked version of the movie title."""
         return self.get_placeholder(reveal_correct=False)
 
     def display_game_progression(self) -> str:
-        """
-        Displays the current progress of the game, including correctly guessed letters.
-
-        Returns:
-            str: The current state of the movie title.
-        """
+        """Displays the current progress of the game, including masked and unmasked letters."""
         return self.get_placeholder(reveal_correct=True)
 
     def is_valid_guess(self, userguess: str) -> tuple[bool, str | None]:
@@ -154,12 +136,7 @@ class Hangman:
             return False
 
     def guess_a_letter(self) -> str:
-        """
-        Prompts the user to guess a letter.
-
-        Returns:
-            str: The valid guessed letter.
-        """
+        """Prompts the user to guess a letter."""
         while True:
             userguess = input("\nGuess a letter.\n").strip().lower()
             is_valid, message = self.is_valid_guess(userguess)
