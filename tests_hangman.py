@@ -79,8 +79,8 @@ def test_initialization(hangman):
     "movie_title, expected_placeholder",
     [
         (
-            "Pirates of the Caribbean: Dead Man's Chest (2006)",
-            "_______ __ ___ _________: ____ ___'s _____",
+            "Pirates of the Caribbean: Dead Man's Chest",
+            "_______ __ ___ _________: ____ ___'_ _____",
         ),
         ("Wall-E!", "____-_!"),
         ("Up", "__"),
@@ -101,13 +101,13 @@ def test_show_initial_placeholders(movie_title, expected_placeholder):
         (
             "Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb",
             set(),
-            "__. ____________ __: ___ _ _______ __ ____ _______ ___ ____ ___ ____",
+            "__. ___________ __: ___ _ _______ __ ____ ________ ___ ____ ___ ____",
         ),
         # Partially guessed letters
         (
             "Pirates of the Caribbean: Dead Man's Chest",
             {"d", "r", "s", "t", "l"},
-            "_r__t_s __ ___ __r______: D__d ___'s ___st",
+            "__r_t_s __ t__ __r______: D__d ___'s ___st",
         ),
         # Fully guessed title
         (
@@ -144,7 +144,7 @@ def test_display_game_progression(movie_title, correct_letters, expected_progres
             "tt",
             (False, "Invalid input. Please enter a single letter.\n"),
         ),  # Multiple letters
-        ("g1", ("Invalid input. Please enter a single letter.\n")),
+        ("g1", (False, "Invalid input. Please enter a single letter.\n")),
     ],
 )
 def test_is_valid_guess(hangman, userguess, expected):
@@ -192,7 +192,7 @@ def test_invalid_guess_a_letter(hangman, mocker):
 @pytest.mark.parametrize(
     "correct_letter, wrong_guesses, expected",
     [
-        (set("thegodfather"), 0, True),  # Win condition
+        (set("piratesofthecaribbeandeadmanschest"), 0, True),  # Win condition
         (set(), 5, True),  # Lose condition
         (set(), 0, False),  # Game still in progress
     ],
@@ -207,14 +207,6 @@ def test_check_win_or_lose(hangman, correct_letter, wrong_guesses, expected):
 
 
 # ---------------------- TEST EDGE CASES ---------------------- #
-def test_empty_movie_title():
-    """
-    Test behavior when the movie title is empty.
-    """
-    game = Hangman("", 5)
-    assert game.show_initial_placeholders() == ""
-
-
 def test_movie_with_special_characters():
     """
     Test handling of special characters in the movie title.

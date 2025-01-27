@@ -191,5 +191,5 @@ class Hangman:
 
 if __name__ == "__main__":
     # hangman = Hangman(secret_movie="Love & Mercy, Oh Brother!! Where? Art:Thou?")
-    hangman = Hangman()
+    hangman = Hangman(secret_movie="")
     hangman.play()
