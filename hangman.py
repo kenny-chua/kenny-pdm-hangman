@@ -20,7 +20,7 @@ class Hangman:
         wrong_guesses (int): The number of incorrect guesses made.
         max_guesses (int): The maximum allowed incorrect guesses.
         already_guessed (set): A set of letters already guessed by the player.
-        correct_letter (set): A set of correctly guessed letters.
+        correct_letters (set): A set of correctly guessed letters.
     """
 
     def __init__(self, secret_movie=None, max_guesses=10) -> None:
@@ -40,7 +40,7 @@ class Hangman:
         self.wrong_guesses = 0
         self.max_guesses = max_guesses
         self.already_guessed = set()
-        self.correct_letter = set()
+        self.correct_letters = set()
 
     def get_placeholder(self, reveal_correct: bool = False) -> str:
         """
@@ -50,7 +50,7 @@ class Hangman:
             str: The masked movie title.
         """
         return "".join(
-            char if char.lower() in self.correct_letter or not char.isalpha() else "_"
+            char if char.lower() in self.correct_letters or not char.isalpha() else "_"
             for char in self.secret_movie_proper
         )
 
@@ -90,7 +90,7 @@ class Hangman:
             bool: True if the guess is correct, False otherwise.
         """
         if guess.lower() in self.secret_movie:
-            self.correct_letter.add(guess.lower())
+            self.correct_letters.add(guess.lower())
             return True
         else:
             self.wrong_guesses += 1
